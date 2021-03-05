@@ -1,20 +1,24 @@
+const usuariosTable = document.getElementById('tabla');
+const usuariosTableCard = document.getElementById('groupNotes');
+const usuariosTableCard2 = document.getElementById('groupNotes2');
+
+const json = localStorage.getItem('usuarios'); // Traer de localStorage el dato asociado a la key "usuarios".
+const usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a código JavaScript.
+
+mostrarUsuarios();
 const formularioForm = document.getElementById('formulario');
 const emailInput = document.getElementById('inputEmail');
 console.log("email", emailInput.value);
 const passInput = document.getElementById('inputPass');
 const nombreInput = document.getElementById('inputNombre');
-const usuariosTable = document.getElementById('tabla');
-const usuariosTableCard = document.getElementById('groupNotes');
-console.log("USUARIOSTABLECARD", usuariosTableCard)
+console.log("USUARIOSTABLECARD2", usuariosTableCard2)
 const rolInput = document.getElementById('inputRol');
 console.log("roles", rolInput.value);
 const titulo1 = document.getElementById('titulo');
 const nota1 = document.getElementById('nota');
 console.log("titulo_object", titulo1)
 console.log("titulo", titulo1.value);
-const grupoDeNotas = document.getElementById('groupNotes');
-const json = localStorage.getItem('usuarios'); // Traer de localStorage el dato asociado a la key "usuarios".
-const usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a código JavaScript.
+//const grupoDeNotas = document.getElementById('groupNotes');
 
 function generarID() {
     // Math.random should be unique because of its seeding algorithm.
@@ -37,6 +41,7 @@ formularioForm.onsubmit = function (e) {
     usuarios.push(usuario);
     const json = JSON.stringify(usuarios); // Convertir datos a un string JSON.
     localStorage.setItem('usuarios', json); // Guardar en localStorage un dato asociado a la key "usuarios".
+    location.href = "./index.html";
     mostrarUsuarios();
     //formularioForm.reset(); // reset limpia los campos del formulario.
 };
@@ -88,7 +93,9 @@ function mostrarUsuarios() {
      
     usuariosTableCard.innerHTML = filasCards.join('');
 
-        
+    //usuariosTableCard2.innerHTML = filasCards2.join('');
+
+   // console.log("USUARIOSTABLECARD2", usuariosTableCard2)
 
     }
     mostrarUsuarios();
