@@ -8,74 +8,32 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  <title>CRUD</title>
+  <title> </title>
 </head>
 
 <body>
-  <h1>CRUD</h1>
-  <div class="card m-auto" style="max-width: 350px;">
-    <form id="formulario">
+  <h1>CREAR NOTA</h1>
+  <div class="card m-auto" style="max-width: 350px; mb-3">
+    <form id="formulario" class="mb-3">
       <div class="input-group mb-3">
         <span class="input-group-text" >Titulo</span>
-        <input id="titulo" type="text" class="form-control" placeholder="Ingresa el Titulo de la Nota"
-          aria-label="Username" aria-describedby="basic-addon1" required>
+        <input id="titulo" type="text" class="form-control" placeholder="Ingresa el Titulo (4 a 60 caracteres)"
+          aria-label="Username" aria-describedby="basic-addon1" minlength="4" maxlength="60" required>
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">NOTA</span>
         <textarea id="nota" class="form-control" aria-label="With textarea"
-          placeholder="Ingresa el contenido de la nota - (500 caracteres maximo)" required></textarea>
+          placeholder="Ingresa el contenido de la nota - (4 a 500 caracteres)" minlength="4" maxlength="500"required></textarea>
       </div>
-
-      <label for="inputEmail">Ingresar correo</label>
-      <input type="email" id="inputEmail" required>
-      <br>
-      <label for="inputPass">Ingresar contraseña</label>
-      <input type="password" id="inputPass" required>
-      <br>
-      <label for="inputNombre">Ingresar nombre</label>
-      <input type="text" id="inputNombre" required>
-      <br>
-      <label for="inputRol">Ingresar rol</label>
-      <select id="inputRol" required>
-        <option>Scrum Master</option>
-        <option>Dev</option>
-      </select>
+        
       <button type="submit">Enviar</button>
     </form>
   </div>
-  <!-- Tabla Usuarios -->
-  <div>
-    <table class="table table-dark table-striped mt-5">
-      <thead>
-        <tr>
-          <th scope="col">Titulo</th>
-          <th scope="col">Nota</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Correo</th>
-          <th scope="col">Rol</th>
-        </tr>
-      </thead>
-      <tbody id="tabla">
-        <!-- <tr>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr> -->
-      </tbody>
-    </table>
-  </div>
-
+  
   <!--Group Cards-->
 
-  <div class="card-group d-flex flex-column" id="groupNotes" >
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title" id="cardTitulo">Card Title</h5>
-        <textarea id="textCard" class="form-control" aria-label="With textarea"></textarea>
-        <p class="card-text" id="idCard"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
+  <div class="card-group d-flex flex-column d-none" id="groupNotes" >
+  </div> 
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"

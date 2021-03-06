@@ -1,24 +1,16 @@
-const usuariosTable = document.getElementById('tabla');
+var validado = true;
+//const usuariosTable = document.getElementById('tabla');
 const usuariosTableCard = document.getElementById('groupNotes');
-const usuariosTableCard2 = document.getElementById('groupNotes2');
+//const usuariosTableCard2 = document.getElementById('groupNotes2');
 
 const json = localStorage.getItem('usuarios'); // Traer de localStorage el dato asociado a la key "usuarios".
 const usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a código JavaScript.
 
 mostrarUsuarios();
 const formularioForm = document.getElementById('formulario');
-const emailInput = document.getElementById('inputEmail');
-console.log("email", emailInput.value);
-const passInput = document.getElementById('inputPass');
-const nombreInput = document.getElementById('inputNombre');
-console.log("USUARIOSTABLECARD2", usuariosTableCard2)
-const rolInput = document.getElementById('inputRol');
-console.log("roles", rolInput.value);
+console.log("FORMULARIOFORM",formularioForm);
 const titulo1 = document.getElementById('titulo');
 const nota1 = document.getElementById('nota');
-console.log("titulo_object", titulo1)
-console.log("titulo", titulo1.value);
-//const grupoDeNotas = document.getElementById('groupNotes');
 
 function generarID() {
     // Math.random should be unique because of its seeding algorithm.
@@ -28,78 +20,90 @@ function generarID() {
 };
 
 formularioForm.onsubmit = function (e) {
+
     e.preventDefault();
-    const usuario = {
-        id: generarID(),
-        email: emailInput.value,
-        tituloNota: titulo1.value,
-        contenidoNota: nota1.value,
-        pass: passInput.value,
-        nombre: nombreInput.value,
-        rol: rolInput.value,
-    };
-    usuarios.push(usuario);
-    const json = JSON.stringify(usuarios); // Convertir datos a un string JSON.
-    localStorage.setItem('usuarios', json); // Guardar en localStorage un dato asociado a la key "usuarios".
+    console.log ("VALIDADO ANTES DE FUNCION",validado);
+    
+    validado = validateForm_addnota();
+    console.log ("VALIDADO",validado);
+    if (validado) {
+
+        const usuario = {
+            id: generarID(),
+            tituloNota: titulo1.value,
+            contenidoNota: nota1.value,
+        };
+        usuarios.push(usuario);
+        const json = JSON.stringify(usuarios); // Convertir datos a un string JSON.
+        localStorage.setItem('usuarios', json); // Guardar en localStorage un dato asociado a la key "usuarios".
+        location.href = "./index.html";
+        mostrarUsuarios();
+        formularioForm.reset(); // reset limpia los campos del formulario.
+        volver()
+    }
+}
+;
+
+function volver() {
     location.href = "./index.html";
-    mostrarUsuarios();
-    //formularioForm.reset(); // reset limpia los campos del formulario.
-};
+  }
 
 function mostrarUsuarios() {
-    // const usuariosMap = usuarios.map(function (usuario) {
-    //     return `
-    //         <tr>
-    //             <td>${usuario.nombre}</td>
-    //             <td>${usuario.email}</td>
-    //             <td>${usuario.rol}</td>
-    //         </tr>
-    //     `;
-    // }); // La función recorre y map genera un array nuevo sin modificar el array original.
-    // // Recibe por parámetros la función que debe ejecutarse por cada elemento del array.
-    // usuariosTable.innerHTML = usuariosMap.join('');
-    let filas = [];
+    let filasCards = [];
     for (let i = 0; i < usuarios.length; i++) {
         const usuario = usuarios[i];
-        const tr = `
-            <tr>
-                <td>${usuario.tituloNota}</td>
-                <td>${usuario.contenidoNota}</td>
-                <td>${usuario.nombre}</td>
-                <td>${usuario.email}</td>
-                <td>${usuario.rol}</td>
-            </tr>
-        `;
-        filas.push(tr);
-        console.log ("FILAS", filas)
-    }
-        let filasCards = [];
-        for (let i = 0; i < usuarios.length; i++) {
-            const usuario = usuarios[i];
-            const divCard1 = `<div class="card">
+        const divCard1 = `<div class="card">
         <div class="card-body">
           <h5 class="card-title">${usuario.tituloNota}</h5>
           <textarea class="form-control" aria-label="With textarea">${usuario.contenidoNota}</textarea>
-          <p class="card-text"><small class="text-muted">${usuario.id}</small></p>
+          <p class="card-text"><small class="text-muted">ID Nota: ${usuario.id}</small></p>
         </div>
       </div>
         `;
-            filasCards.push(divCard1);
-            console.log("CARDS", filasCards)
-            
-        }
-    usuariosTable.innerHTML = filas.join('');
-
-     
-    usuariosTableCard.innerHTML = filasCards.join('');
-
-    //usuariosTableCard2.innerHTML = filasCards2.join('');
-
-   // console.log("USUARIOSTABLECARD2", usuariosTableCard2)
+        filasCards.push(divCard1);
+        //console.log("CARDS", filasCards)
 
     }
-    mostrarUsuarios();
+    usuariosTableCard.innerHTML = filasCards.join('');
 
+}
+
+
+
+mostrarUsuarios();
+
+function validateForm_addnota() {
+    var x = document.forms["formulario"]["titulo"].value;
+    console.log("X", x);
+
+    var ps1 = document.forms["formulario"]["nota"].value
+    var ps1Lenght = ps1.lenght;
+    console.log("PS1", ps1);
+    console.log ("PS1LENGHT", ps1Lenght);
+    
+    console.log("PS1", ps1.lenght)
+    
+    var exito = true
+
+    if (x == "" || x == "123456789" || x.length <4 || x.lenght > 60 ) {
+        alert("Titulo corto o demasiado largo (4 hasta 60 caracteres)!");
+        exito = false;
+        return false;
+    }
+    if (ps1 == "" || ps1 == "123456789" || ps1.lenght < 4 || ps1.lenght > 500 ) {
+        alert("Nota vacia o invalida! (4 a 500 caracteres)");
+        exito = false;
+        console.log("exitops1", exito);
+        return false;
+    }
+    console.log("exito final", exito);
+    if (exito) {
+        alert("Nota Creada!")
+    } else {
+        alert("Nota Cancelada!");
+    }
+    return exito;
+}
 
 //var numbers = [1, 4, 9];
 
