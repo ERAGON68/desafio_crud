@@ -66,7 +66,7 @@ function mostrarUsuarios() {
           <div d-fles d-flex flex-row justify-content-around>
             <button onclick="mostrarDetalle('${usuario.id}')" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalle">Ver detalle</button>
             <button onclick="cargarModalEditar('${usuario.id}')" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
-            <button onclick="eliminarUsuario('${usuario.id}')" class="btn btn-danger btn-sm row">Eliminar</button>
+            <button onclick="eliminarUsuario('${usuario.id}')" class="btn btn-danger btn-sm ">Eliminar</button>
           </div>  
         </div>
       </div>
@@ -214,9 +214,9 @@ const json = JSON.stringify(usuariosModificado);
     // Guardar lista de usuarios en localStorage.
     localStorage.setItem('usuarios', json);
     usuarios = usuariosModificado;
-    console.log("Se modificó exitosamente un usuario. 👨‍💻");
+    //console.log("Se modificó exitosamente un usuario. 👨‍💻");
     mostrarUsuarios();
-    alert("ENTRO AL EVENTO DE EDITAR FORM FUERA DEL MAP");
+    //alert("ENTRO AL EVENTO DE EDITAR FORM FUERA DEL MAP");
     // Ocultar el modal con las funciones incluidas en bootstrap.
     const modalDiv = document.getElementById('modalEditar');
     const modalBootstrap = bootstrap.Modal.getInstance(modalDiv);
