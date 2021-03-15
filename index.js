@@ -8,7 +8,7 @@ let usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a c√
 const editarForm = document.getElementById('formularioEditar');
 //console.log('EDITARFORM', editarForm);
 mostrarUsuarios();
-const formularioForm = document.getElementById('formulario');
+//const formularioForm = document.getElementById('formulario');
 const titulo1 = document.getElementById('titulo');
 const nota1 = document.getElementById('nota');
 let usuarioId = ''
@@ -20,34 +20,34 @@ function generarID() {
     return '_' + Math.random().toString(36).substr(2, 9);
 };
 
-formularioForm.onsubmit = function (e) {
+//formularioForm.onsubmit = function (e) {
 
-    e.preventDefault();
+  //  e.preventDefault();
     
-    validado = validateForm_addnota();
-    console.log ("VALIDADO",validado);
-    if (validado) {
+    //validado = validateForm_addnota();
+    //console.log ("VALIDADO",validado);
+    //if (validado) {
 
-        const usuario = {
-            id: generarID(),
-            tituloNota: titulo1.value,
-            contenidoNota: nota1.value,
-            registro: Date.now(),
-        };
-        usuarios.push(usuario);
-        const json = JSON.stringify(usuarios); // Convertir datos a un string JSON.
-        localStorage.setItem('usuarios', json); // Guardar en localStorage un dato asociado a la key "usuarios".
-        location.href = "./index.html";
-        mostrarUsuarios();
-        formularioForm.reset(); // reset limpia los campos del formulario.
-        volver()
-    } else {
-             // alertaDiv.style = "display: block !important"
-            alertaDiv.classList.remove('d-none');
-          }
-    }
+      //  const usuario = {
+        //    id: generarID(),
+          //  tituloNota: titulo1.value,
+            //contenidoNota: nota1.value,
+           // registro: Date.now(),
+       // };
+        //usuarios.push(usuario);
+        //const json = JSON.stringify(usuarios); // Convertir datos a un string JSON.
+        //localStorage.setItem('usuarios', json); // Guardar en localStorage un dato asociado a la key "usuarios".
+        //location.href = "./index.html";
+        //mostrarUsuarios();
+        //formularioForm.reset(); // reset limpia los campos del formulario.
+        //volver()
+    //} else {
+             ////// alertaDiv.style = "display: block !important"
+      //      alertaDiv.classList.remove('d-none');
+        //  }
+   // }
 
-;
+//;
 
 function volver() {
     location.href = "./index.html";
@@ -192,7 +192,7 @@ editarForm.onsubmit = function editarUsuario(ee) {
             return usuarioModificado;
         } else {
             // Retornar el usuario sin modificar en los casos que no coincida el id.
-            console.log('USUARIOMODIFICADO', usuarioModificado )
+            //console.log('USUARIOMODIFICADO', usuarioModificado )
             return usuario;
         }
     });
