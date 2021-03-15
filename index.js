@@ -5,12 +5,13 @@ const usuariosTableCard = document.getElementById('groupNotes');
 const alertaDiv = document.getElementById('alerta');
 const json = localStorage.getItem('usuarios'); // Traer de localStorage el dato asociado a la key "usuarios".
 let usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a código JavaScript.
-
+const editarForm = document.getElementById('formularioEditar');
+//console.log('EDITARFORM', editarForm);
 mostrarUsuarios();
 const formularioForm = document.getElementById('formulario');
-console.log("FORMULARIOFORM",formularioForm);
 const titulo1 = document.getElementById('titulo');
 const nota1 = document.getElementById('nota');
+let usuarioId = ''
 
 function generarID() {
     // Math.random should be unique because of its seeding algorithm.
@@ -22,7 +23,6 @@ function generarID() {
 formularioForm.onsubmit = function (e) {
 
     e.preventDefault();
-    console.log ("VALIDADO ANTES DE FUNCION",validado);
     
     validado = validateForm_addnota();
     console.log ("VALIDADO",validado);
@@ -156,6 +156,47 @@ function mostrarDetalle(id) {
     detalleDiv.innerHTML = detallesUsuario;
 }
 
+function cargarModalEditar(id) {
+    // Buscar el usuario en el array usando el método find().
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.id === id);
+    editarTituloInput.value = usuarioEncontrado.tituloNota;
+    console.log ('USUARIOENCONTRADO', usuarioEncontrado);
+    console.log ('TITULO ENCONTRADO', usuarioEncontrado.tituloNota);
+    editarNotaInput.value = usuarioEncontrado.contenidoNota;
+    console.log ('NOTA ENCONTRADA',usuarioEncontrado.contenidoNota);
+    console.log ('NOTA ENCONTRADA VALUE', editarNotaInput.value);
+    
+    // Actualizar el valor de la variable global usuarioId, con el id del usuario encontrado.
+    usuarioId = usuarioEncontrado.id;
+    console.log('USUARIOS ARRAY', usuarios);
+    console.log('USUARIOID', usuarioId);
+    console.log('EDITARFORM', editarForm);
+
+    
+}
+//console.log('USUARIOS ARRAY', usuarios)
+editarForm.onsubmit = function editarUsuario(ee) {
+    ee.preventDefault();
+    // Actualizar un usuario del array, usando map().
+    alert("ENTRO AL EVENTO DE EDITAR FORM");
+    const usuariosModificado = usuarios.map((usuario) => {
+        // Usamos el id de usuario guardado en usuarioId,
+        // para modificar solo al usuario que coincida con este.
+        if (usuario.id === usuarioId) {
+            // Usar spread syntax para copiar las propiedades de un objeto a otro.
+            const usuarioModificado = {
+                ...usuario,
+                tituloNota: editarTituloInput.value,
+                contenidoNota: editarNotaInput.value,
+            };
+            return usuarioModificado;
+        } else {
+            // Retornar el usuario sin modificar en los casos que no coincida el id.
+            console.log('USUARIOMODIFICADO', usuarioModificado )
+            return usuario;
+        }
+    });
+
 
 //var numbers = [1, 4, 9];
 
@@ -169,3 +210,17 @@ function mostrarDetalle(id) {
 // var roots = numbers.map(mapRoots);
 // console.log('numbers', numbers);
 // console.log('roots', roots);
+const json = JSON.stringify(usuariosModificado);
+    // Guardar lista de usuarios en localStorage.
+    localStorage.setItem('usuarios', json);
+    usuarios = usuariosModificado;
+    console.log("Se modificó exitosamente un usuario. 👨‍💻");
+    mostrarUsuarios();
+    alert("ENTRO AL EVENTO DE EDITAR FORM FUERA DEL MAP");
+    // Ocultar el modal con las funciones incluidas en bootstrap.
+    const modalDiv = document.getElementById('modalEditar');
+    const modalBootstrap = bootstrap.Modal.getInstance(modalDiv);
+    modalBootstrap.hide();
+};
+
+

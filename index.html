@@ -44,7 +44,7 @@
 
   </section>
 
-  <!-- Modal -->
+  <!-- Modal Detalle -->
   <div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -66,7 +66,34 @@
   </div>
   
 
-
+<!-- Modal Editar Usuario -->
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">EDITAR NOTA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="formularioEditar" class="mb-3">
+        <div class="input-group mb-3">
+          <span class="input-group-text" >Editar Titulo</span>
+          <input id="editarTituloInput" type="text" class="form-control" placeholder="Ingresa el Titulo (4 a 60 caracteres)"
+            aria-label="Username" aria-describedby="basic-addon1" minlength="4" maxlength="60" required>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Editar Contenido NOTA</span>
+          <textarea id="editarNotaInput" class="form-control" aria-label="With textarea"
+            placeholder="Ingresa el contenido de la nota - (4 a 500 caracteres)" minlength="4" maxlength="500"required></textarea>
+        </div>
+          
+        <button type="submit">Enviar</button>
+        <div id="alerta" class="alert alert-danger d-none" role="alert"> Datos Incorrectos </div>
+      </div>
+    
+      </form>
+    </div>
+  </div>
+</div>
 
   <!-- Optional JavaScript; choose one of the two! -->
 
