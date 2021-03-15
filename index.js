@@ -2,9 +2,9 @@ var validado = true;
 //const usuariosTable = document.getElementById('tabla');
 const usuariosTableCard = document.getElementById('groupNotes');
 //const usuariosTableCard2 = document.getElementById('groupNotes2');
-
+const alertaDiv = document.getElementById('alerta');
 const json = localStorage.getItem('usuarios'); // Traer de localStorage el dato asociado a la key "usuarios".
-const usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a código JavaScript.
+let usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a código JavaScript.
 
 mostrarUsuarios();
 const formularioForm = document.getElementById('formulario');
@@ -32,6 +32,7 @@ formularioForm.onsubmit = function (e) {
             id: generarID(),
             tituloNota: titulo1.value,
             contenidoNota: nota1.value,
+            registro: Date.now(),
         };
         usuarios.push(usuario);
         const json = JSON.stringify(usuarios); // Convertir datos a un string JSON.
@@ -40,8 +41,12 @@ formularioForm.onsubmit = function (e) {
         mostrarUsuarios();
         formularioForm.reset(); // reset limpia los campos del formulario.
         volver()
+    } else {
+             // alertaDiv.style = "display: block !important"
+            alertaDiv.classList.remove('d-none');
+          }
     }
-}
+
 ;
 
 function volver() {
@@ -52,11 +57,17 @@ function mostrarUsuarios() {
     let filasCards = [];
     for (let i = 0; i < usuarios.length; i++) {
         const usuario = usuarios[i];
+        const fecha = new Date(usuario.registro);
         const divCard1 = `<div class="card">
         <div class="card-body">
           <h5 class="card-title">${usuario.tituloNota}</h5>
           <textarea class="form-control" aria-label="With textarea">${usuario.contenidoNota}</textarea>
           <p class="card-text"><small class="text-muted">ID Nota: ${usuario.id}</small></p>
+          <div d-fles d-flex flex-row justify-content-around>
+            <button onclick="mostrarDetalle('${usuario.id}')" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalle">Ver detalle</button>
+            <button onclick="cargarModalEditar('${usuario.id}')" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+            <button onclick="eliminarUsuario('${usuario.id}')" class="btn btn-danger btn-sm row">Eliminar</button>
+          </div>  
         </div>
       </div>
         `;
@@ -85,25 +96,66 @@ function validateForm_addnota() {
     
     var exito = true
 
-    if (x == "" || x == "123456789" || x.length <4 || x.lenght > 60 ) {
-        alert("Titulo corto o demasiado largo (4 hasta 60 caracteres)!");
+    if (x == "" || x == "123456789" || x.length <6 || x.lenght > 60 ) {
+        //alert("Titulo corto o demasiado largo (4 hasta 60 caracteres)!");
         exito = false;
-        return false;
+        console.log("EXITO TITULO", exito);
+        //return false;
     }
     if (ps1 == "" || ps1 == "123456789" || ps1.lenght < 4 || ps1.lenght > 500 ) {
-        alert("Nota vacia o invalida! (4 a 500 caracteres)");
+        //alert("Nota vacia o invalida! (4 a 500 caracteres)");
         exito = false;
-        console.log("exitops1", exito);
-        return false;
+        console.log("EXITO NOTA", exito);
+        //return false;
     }
-    console.log("exito final", exito);
+    console.log("EXITO FINAL", exito);
     if (exito) {
         alert("Nota Creada!")
     } else {
-        alert("Nota Cancelada!");
+        alertaDiv.classList.remove('d-none');
+        //alert("Nota Cancelada!");
     }
     return exito;
 }
+
+function eliminarUsuario(id) {
+    // const usuariosFiltrados = usuarios.filter((usuario) => usuario.id !== id);
+
+    let usuariosFiltrados = [];
+    for (let i = 0; i < usuarios.length; i++) {
+        const usuario = usuarios[i];
+        const coincideId = usuario.id === id;
+        if (!coincideId) {
+            usuariosFiltrados.push(usuario);
+        }
+    }
+    const json = JSON.stringify(usuariosFiltrados);
+    localStorage.setItem('usuarios', json);
+    usuarios = usuariosFiltrados;
+    location.reload();
+    mostrarUsuarios();
+}
+
+function mostrarDetalle(id) {
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.id === id);
+    console.log('mostrarDetalle - usuarioEncontrado', usuarioEncontrado);
+    // const detalleDiv = document.getElementById('detalleUsuario');
+    // detalleDiv.innerHTML = usuarioEncontrado.nombre;
+    const detalleDiv = document.getElementById('detalleUsuario');
+    const fecha = new Date(usuarioEncontrado.registro);
+    console.log('mostrarDetalle - fecha', fecha);
+    const detallesUsuario = `
+
+        <p>Titulo: ${usuarioEncontrado.tituloNota} </p>
+        <p>Nota: ${usuarioEncontrado.contenidoNota}</p>
+        <p>id: ${usuarioEncontrado.id}</p>
+        <p>Fecha de Publicacion: ${fecha.toLocaleString()}</p>
+
+        
+    `;
+    detalleDiv.innerHTML = detallesUsuario;
+}
+
 
 //var numbers = [1, 4, 9];
 
