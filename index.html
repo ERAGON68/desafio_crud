@@ -25,6 +25,16 @@
         CREAR NOTA
       </a>
     </div>
+    <!-- BUSQUEDA DE CARDS-->
+    <div class="mt-5 mb-3">
+      <form id="formBusqueda">
+        <label for="busqueda">Búsqueda</label>
+        <input id="busqueda" type="text">
+        <button type="submit">Buscar</button>
+        <button type="button" onclick="limpiarFiltro()">Limpiar</button>
+        <div id="alertaBusqueda" class="alert alert-info d-none">No hay resultados para la búsqueda</div>
+      </form>
+    </div>
   </section>
   <!--SECCION MUESTRA CARDS-->
 

@@ -223,4 +223,39 @@ const json = JSON.stringify(usuariosModificado);
     modalBootstrap.hide();
 };
 
+const submitBusqueda = (e) => {
+    e.preventDefault();
+    const usuariosLocal = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const busquedaInput = document.getElementById('busqueda');
+    const termino = busquedaInput.value.toLowerCase();
+    const usuariosFiltrados = usuariosLocal.filter((usuario) => {
+        const nombreEnMinuscula = usuario.nombre.toLowerCase();
+        return nombreEnMinuscula.includes(termino);
+    });
+    usuarios = usuariosFiltrados;
+    mostrarUsuarios();
+    // Condicional para mostrar u ocultar el mensaje "sin resultados".
+    const alerta = document.getElementById('alertaBusqueda');
+    if (usuariosFiltrados.length === 0) {
+        alerta.classList.remove('d-none');
+    } else {
+        alerta.classList.add('d-none');
+    }
+};
+
+const limpiarFiltro = () => {
+    usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    busquedaForm.reset();
+    mostrarUsuarios();
+    const alerta = document.getElementById('alertaBusqueda');
+    alerta.classList.add('d-none');
+}
+
+mostrarUsuarios();
+formularioForm.onsubmit = submitFormulario;
+editarForm.onsubmit = editarUsuario;
+busquedaForm.onsubmit = submitBusqueda;
+
+
+
 
