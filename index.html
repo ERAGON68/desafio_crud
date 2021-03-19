@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -21,18 +21,19 @@
   <!-- SECCION BOTON CREAR NOTA -->
   <section>
     <div class="list-group d-flex justify-content-center ">
-      <a class="list-group-item list-group-item-action active d-flex justify-content-center" href="./addnote.html" >
+      <a class="list-group-item list-group-item-action active d-flex justify-content-center fw-bold" href="./addnote.html" >
         CREAR NOTA
       </a>
     </div>
     <!-- BUSQUEDA DE CARDS-->
-    <div class="mt-5 mb-3">
-      <form id="formBusqueda">
-        <label for="busqueda">Búsqueda</label>
-        <input id="busqueda" type="text">
-        <button type="submit">Buscar</button>
-        <button type="button" onclick="limpiarFiltro()">Limpiar</button>
-        <div id="alertaBusqueda" class="alert alert-info d-none">No hay resultados para la búsqueda</div>
+    <div class="mt-5 mb-5 px-3">
+      <form id="formBusqueda"  size="50">
+        <label class="px-3 fw-bold" for="busqueda">BUSCAR:</label>
+        <input id="busqueda" type="text" placeholder="Titulo y/o Contenido" class="fst-italic">
+        <button type="submit" class="fas fa-search border-0 bg-white text-primary ml-3" title="search"></i></button>
+        <button type="button" onclick="limpiarFiltro()" class="fas fa-redo border-0 bg-white text-primary" title="refresh" mb-3></button>
+      
+        <div id="alertaBusqueda" class="alert alert-info d-none mt-4">No hay resultados para la búsqueda</div>
       </form>
     </div>
   </section>
@@ -59,17 +60,17 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">NOTA</h5>
+          <h5 class="modal-title p-3 mb-2 bg-info text-white" id="exampleModalLabel">NOTA</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div id="detalleUsuario" class="modal-body">
-          <p>Titulo</p>
-          <p>Nota</p>
-          <p>id</p>
-          <p>Fecha de Publicacion</p>
+          <p class="">Titulo: </p>
+          <p class="fw-bold">Nota:</p>
+          <p class="fw-bold">id:</p>
+          <p class="fw-bold">Fecha de Publicacion:</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ const alertaDiv = document.getElementById('alerta');
 const json = localStorage.getItem('usuarios'); // Traer de localStorage el dato asociado a la key "usuarios".
 let usuarios = JSON.parse(json) || []; // Convertir datos de un string JSON a código JavaScript.
 const editarForm = document.getElementById('formularioEditar');
+const busquedaForm = document.getElementById('formBusqueda');
 //console.log('EDITARFORM', editarForm);
 mostrarUsuarios();
 //const formularioForm = document.getElementById('formulario');
@@ -229,9 +230,13 @@ const submitBusqueda = (e) => {
     const busquedaInput = document.getElementById('busqueda');
     const termino = busquedaInput.value.toLowerCase();
     const usuariosFiltrados = usuariosLocal.filter((usuario) => {
-        const nombreEnMinuscula = usuario.nombre.toLowerCase();
-        return nombreEnMinuscula.includes(termino);
-    });
+        console.log ("USUARIO", usuario);
+        const tituloEnMinuscula = usuario.tituloNota.toLowerCase();
+        const contenidoEnMinuscula = usuario.contenidoNota.toLowerCase();
+        const encuentro = (tituloEnMinuscula.includes(termino) || contenidoEnMinuscula.includes(termino));
+        console.log ("ENCUENTRO", encuentro);
+        return encuentro;
+     });
     usuarios = usuariosFiltrados;
     mostrarUsuarios();
     // Condicional para mostrar u ocultar el mensaje "sin resultados".
@@ -252,8 +257,8 @@ const limpiarFiltro = () => {
 }
 
 mostrarUsuarios();
-formularioForm.onsubmit = submitFormulario;
-editarForm.onsubmit = editarUsuario;
+//formularioForm.onsubmit = submitFormulario;
+//editarForm.onsubmit = editarUsuario;
 busquedaForm.onsubmit = submitBusqueda;
 
 
